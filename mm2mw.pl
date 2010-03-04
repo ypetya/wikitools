@@ -11,8 +11,8 @@ sub Filter {
 
 	my $this = shift;
 	my $args = {
-		infile => " ",
-		outfile => " ",
+		infile => "data/in.mm",
+		outfile => "data/out.mw",
 		@_,			# Override previous attributes
 	};
 	my $infile = $args->{infile};
@@ -123,19 +123,19 @@ sub Filter {
 
                 # link convert - [wiki:cat * ] -> [[cat| * ]]
                 #
-                $this->ConvertWikiLinks(line=>\$_);
+#               $this->ConvertWikiLinks(line=>\$_);
 
                 # convert CamelCase links
                 #
-                $this->ConvertCamelLinks(line=>\$_);
+#                $this->ConvertCamelLinks(line=>\$_);
 
                 # link convert - /CommentPage -> Talk:PageName
                 #
-                @slashparts = split(/\//,$infile);
-                my $filename = $slashparts[$#slashparts];
-                @spaceparts = split(/(?=[A-Z])/,$filename);
-                $name = join(" ",@spaceparts);
-                s/\/CommentPage/\[\[Talk:$name\]\]/g;
+#                @slashparts = split(/\//,$infile);
+#                my $filename = $slashparts[$#slashparts];
+#                @spaceparts = split(/(?=[A-Z])/,$filename);
+#                $name = join(" ",@spaceparts);
+#                s/\/CommentPage/\[\[Talk:$name\]\]/g;
 
                 # Convert definition lists
                 #
@@ -193,3 +193,5 @@ sub Filter {
         close OUTFILE;
         close INFILE;
 }
+
+Filter();
