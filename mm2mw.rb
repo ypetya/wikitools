@@ -14,11 +14,10 @@ def list_convert line,depth=5
 end
 
 # link convert - [wiki:cat * ] -> [[cat| * ]]
-# FIXME: complete this method
 # TODO: Camelcase links
 # TODO: Link comments
 def convert_wiki_links line
-  line
+  line = line.gsub(/[\[]([^\s]+) (.*?)[\]]/){ "[[#{$1}| #{$2}]]" }
 end
 
 @@is_table = 0
