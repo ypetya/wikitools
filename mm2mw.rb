@@ -8,6 +8,14 @@ output = ARGV[1]
 
 output_array = []
 
+hun_chars = %w{á é í ó ő ú ű}
+en_chars = %w{a e i o o u u}
+# FIXME: there is a character conversation issue with the ISO-8592, so replace the characters in the ugly way.
+def replace_hun_chars text
+  hun_chars.each_with_index{|ch,i| text.gsub!( /#{ch}/, en_chars[i] ) }
+  text
+end
+
 def list_convert line,depth=5
   line = list_convert(line,depth-1) unless depth == 1
   line.gsub(%r{^#{' '*depth}\*(.*?)}){ "*"*depth + $1}
@@ -28,6 +36,8 @@ open(input).readlines.each do |line|
   next if line =~ /^----$/;       # remove unneeded header lines
 
   # regexp substitutions
+
+  line = replace_hun_chars text
 
   # list convert
   line = list_convert(line)
