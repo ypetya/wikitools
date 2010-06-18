@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 
 # MoinMoin to MediaWiki converter
 # it is just the rewritten mm2mw.pl in ruby
@@ -7,14 +8,6 @@ input = ARGV[0]
 output = ARGV[1]
 
 output_array = []
-
-hun_chars = %w{á é í ó ő ú ű}
-en_chars = %w{a e i o o u u}
-# FIXME: there is a character conversation issue with the ISO-8592, so replace the characters in the ugly way.
-def replace_hun_chars text
-  hun_chars.each_with_index{|ch,i| text.gsub!( /#{ch}/, en_chars[i] ) }
-  text
-end
 
 def list_convert line,depth=5
   line = list_convert(line,depth-1) unless depth == 1
@@ -37,7 +30,7 @@ open(input).readlines.each do |line|
 
   # regexp substitutions
 
-  line = replace_hun_chars text
+  #line = replace_hun_chars line
 
   # list convert
   line = list_convert(line)
